@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Registration Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url(../hh.jpg);
+            /* Replace "your-image.jpg" with the URL or file path of your background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .navbar {
+            background-color: #f8f9fa;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .navbar-nav.ml-auto .nav-link {
+            margin-right: 10px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .registration-heading {
+            margin-bottom: 20px;
+        }
+
+        .registration-image {
+            text-align: center;
+        }
+
+        .registration-image img {
+            max-width: 100%;
+            height: auto;
+        }
+		#navbar-main {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		#navbarNav {
+			display: flex;
+			flex-direction: row;
+		}
+		
+		@media screen and (max-width: 650px) {
+			#navbar-main {
+				flex-direction: column;
+				align-items: center;
+			}
+			
+			#navbarNav {
+				margin: 1rem 0;
+				justify-content: center;
+			}
+			
+			.collapse:not(.show) {
+				display: none !important;
+			}
+			
+			.bordering {
+				padding: 0 1rem;
+			}
+		}
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar-main">
+		<div class="container">
+			<a class="navbar-brand" href="#">AdarshCare</a>
+			<ul class="navbar-nav ml-auto" id="navbarNav">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">About</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="registration-heading">User Registration</h2>
+                <form action="{{ url_for('register') }}" method="post">
+                    {% if message is defined and message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Enter password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <p class="bottom">Already have an account? <a class="bottom" href="{{url_for('login')}}">Login
+                            here</a></p>
+                </form>
+            </div>
+            <div class="col-lg-6 registration-image">
+                <img src="static/ii.jpg" alt="Web App Image">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

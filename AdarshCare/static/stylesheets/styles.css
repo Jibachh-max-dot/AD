@@ -1,0 +1,351 @@
+/* Tag styles */
+body {
+    background-color: whitesmoke;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    width: 100vw;
+    font-family: Lato;
+    font-style: normal;   
+    overflow-x: hidden;  
+}
+
+
+
+input{
+    background: #FFFFFF;
+    border: 2px solid #2E8D7F;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 0.3rem 1rem;
+    width: 90%;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Class Styles */
+.navbar-brand {
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 36px;
+    color: #3bc0ac !important;
+    text-shadow: 9px 8px 7px rgba(0, 0, 0, 0.25);
+}
+
+.nav-item{
+    margin: 0 2rem;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.show{
+    display: block;
+}
+
+.card {
+    margin: 25px 0;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 30px;
+    color: #220c70;
+}
+
+.card-body {
+    color: rgb(56, 58, 58);
+    font-weight: bolder;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.card-body>.btn-hgh{
+    background: #5db7e0;
+    border: 2px solid #2E8D7F;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.card:hover {
+    background-color: rgba(0,0,0,0,0.8);
+    box-shadow: 0 8px 16px 4px rgba(20, 29, 109, 0.8);
+}
+
+.btn:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+::placeholder {
+    color: grey;
+    text-align: center;
+}
+
+.btn {
+    margin-bottom: 20px;
+}
+
+.output-container {
+    margin-top: 350px;
+}
+
+
+.footer {
+    height: 50px;
+    width: 100%;
+    background-color: transparent;
+    color: black;
+    text-align: center;
+}
+
+.footer>.divider{
+    font-weight: 900;
+    font-size: 30px;
+    padding: 1px;
+    margin: 0 10%;
+    line-height: 36px;
+    background-color: #f5feff;
+    box-shadow: 9px 8px 7px rgba(0, 0, 0, 0.25);
+}
+
+.footer-text {
+    padding-top: 15px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+}
+
+/* Disease Predictor styling */
+
+.heading-text {
+    padding-top: 40px;
+}
+
+.submit-button {
+    padding-top: 40px;
+}
+
+.image-section {
+    display: none;
+    position: relative;
+    left: 46.5%;
+}
+
+.active{
+    border: 2px solid #2E8D7F;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 16px #2E8D7F);
+    border-radius: 15px;
+}
+
+.img-preview {
+    width: 256px;
+    height: 256px;
+    position: absolute;
+    top: 3rem;
+    left: -4rem;
+    border: 5px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.img-preview > div {
+    width: 100%;
+    height: 100%;
+    background-size: 256px 256px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+input[type="file"] {
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+.upload-label{
+    display: inline-block;
+    padding: 12px 30px;
+    background: #39D2B4;
+    color: black;
+    font-size: 1em;
+    transition: all .4s;
+    cursor: pointer;
+}
+
+.upload-label:hover{
+    background: #34495E;
+    color: #39D2B4;
+}
+
+.predict-button {
+    position: absolute;
+    top: 22rem;
+    left: 1rem;
+    padding-bottom: 15px;
+}
+
+.loader {
+    display: none;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+
+.flexbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.flexbox-vertical{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 170%;
+}
+
+.description-text{
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 77px;
+    color: #230299;
+}
+
+.description-subText{
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #609acf;
+}
+
+.bordering{
+    box-sizing: border-box;
+    border-radius: 12px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding:0 3rem;
+}
+.card{
+    background: #5fe3f5;
+}
+
+.card-body-inp{
+    background: #28bfca;
+    border: 1px solid #530606;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.card-title-inp{
+    background: #FFFEFE;
+    border: 1px solid #D3D3D3;
+    box-sizing: border-box;
+    box-shadow: 0px 7px 22px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0.4rem 0;
+    width: 100%;
+}
+
+.card-inp{
+    border: 0px;
+    margin-left: 2rem ;
+    margin-right: 2rem;
+}
+
+.btn-size{
+    width:50%;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+ /* ID tag styles */
+
+#disease-image {
+    width: 350px;
+    height: 50rem;
+    margin: 0px auto;
+    color: black;
+    border-radius: 25px;
+    padding: 10px 10px;
+    font-weight: bold;
+}
+
+#homebody{
+    background-image: url(../hh.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#diabetesbody{
+    background-image: url(../hh.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#diabetesresultbody{
+    background-image: url(../hh.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#navbar-main {
+    display: flex;
+    justify-content: center;
+}
+
+#navbarNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+@media screen and (max-width:650px) {
+    .flexbox{
+        flex-direction: column;
+    }
+    
+    #navbarNav {
+        margin: 1rem 0;
+        justify-content: center;
+    }
+    
+    .collapse:not(.show) {
+        display: none !important;
+    }
+
+    .bordering{
+        padding:0 1rem;
+    }   
+}
