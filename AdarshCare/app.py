@@ -28,6 +28,7 @@ mysql = MySQL(app)
 
 # Loading our diabetes model:
 modelDB = pickle.load(open("models/LogModelDiabetes.pkl", "rb"))
+modelBC = pickle.load(open("models/RFModelCancer.pkl", "rb"))
 
 
 
