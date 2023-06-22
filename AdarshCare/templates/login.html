@@ -34,10 +34,48 @@
             max-width: 100%;
             height: auto;
         }
+        
+        .navbar {
+            background-color: #f8f9fa;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .navbar-nav.ml-auto .nav-link {
+            margin-right: 10px;
+        }
+
+        #navbar-main {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		#navbarNav {
+			display: flex;
+			flex-direction: row;
+		}
     </style>
 </head>
 
 <body>
+    <nav class="navbar" id="navbar-main">
+		<div class="container">
+			<a class="navbar-brand" href="#">AdarshCare</a>
+			<ul class="navbar-nav ml-auto" id="navbarNav">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">About</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -65,6 +103,11 @@
             </div>
         </div>
     </div>
+
+    <footer class="footer" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <p class="divider"></p>
+        <p class="footer-text">AdarshCare, Copyright &copy; 2023</p>
+    </footer>
 </body>
 
 </html>
