@@ -37,9 +37,24 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('cancer_prediction') }}">Breast-Cancer Detection</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
-                    </li>
+                    {% if session.loggedin %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="path-to-user-image" alt="Profile" class="profile-image">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item name-item" href="#">{{ session['name'] }}</a></li>
+                                <li><a class="dropdown-item" href="#">Terms and Conditions</a></li>
+                                <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

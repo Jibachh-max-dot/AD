@@ -179,6 +179,11 @@ input[type="file"] {
     -ms-transition: 0.5s all;
 }
 
+.name-item {
+    color: rgb(20, 45, 189);
+    pointer-events: none;
+    cursor: default;
+}
 .upload-label{
     display: inline-block;
     padding: 12px 30px;
