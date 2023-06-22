@@ -320,6 +320,19 @@ input[type="file"] {
     background-size: cover;
 }
 
+#cancerbody{
+    background-image: url(../hh.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#cancerresultbody{
+    background-image: url(../hh.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 #navbar-main {
     display: flex;
     justify-content: center;

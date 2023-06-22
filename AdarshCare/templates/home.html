@@ -58,18 +58,30 @@
       <section class="info-card" style="flex:1; margin-bottom: 80px">
           <div class="row flexbox-vertical">
 
-              <div class="pricing-column col-lg-8 col-md-12">
+              <div class="col-lg-6 col-md-6">
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Diabetes Prediction</h3>
                     </div>
                     <div class="card-body">
-                      <p>Decode Your Destiny: Uncover the Diabetes Story of Your Life!</p>
+                      <p>Decode Your Destiny: Uncover the Diabetes Story of Your Life!!</p>
                       <!-- <button class="btn btn-lg btn-block btn-outline-dark" type="button" href="CropResult.html">Go</button> -->
                       <a href="{{ url_for('diabetes_prediction') }}" class="btn btn-lg btn-block btn-outline-dark btn-hgh">Go</a>
                     </div>
                   </div>
                 </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Breast-Cancer Detection</h3>
+                      </div>
+                      <div class="card-body">
+                        <p>Empower yourself, know your breast cancer likelihood!!</p>
+                        <a href="{{ url_for('cancer_prediction') }}" class="btn btn-lg btn-block btn-outline-dark btn-hgh">Go</a>
+                      </div>
+                    </div>
+                  </div>
 
           </div>
       </section>

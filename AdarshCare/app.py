@@ -125,6 +125,26 @@ def db_prediction():
 
     return render_template('diabetes-result.html', prediction_text=result)
 
+@app.route("/cancer-predict", methods=["GET", "POST"])
+def bc_prediction():
+    if request.method == "POST":
+
+        cpm = float(request.form["cpm"])
+        area = float(request.form["area"])
+        radius = float(request.form["radius"])
+        perimeter = float(request.form["perimeter"])
+        concavity = float(request.form["concavity"])
+
+        predictions = modelBC.predict([[cpm, area, radius, perimeter, concavity]])
+        output = predictions[0]
+
+        if output == 0:
+            result = "Type of cells: Benign. Hence the patient is cancer-free"
+        else:
+            result = "Type of cells: Malign. Hence the patient has cancer"
+
+    return render_template('cancer-result.html', prediction_text=result)
+
 @app.route('/predict', methods = ['GET', 'POST'])
 def upload():
     if request.method == 'POST':
