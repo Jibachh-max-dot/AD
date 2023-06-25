@@ -34,9 +34,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('diabetes_prediction') }}">Diabetes Prediction</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cancer_prediction') }}">Breast-Cancer Detection</a>
-                    </li>
                         {% if session.loggedin %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -85,19 +82,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="col-lg-6 col-md-6">
-                    <div class="card">
-                      <div class="card-header">
-                        <h3 class="card-title">Breast-Cancer Detection</h3>
-                      </div>
-                      <div class="card-body">
-                        <p>Empower yourself, know your breast cancer likelihood!!</p>
-                        <a href="{{ url_for('cancer_prediction') }}" class="btn btn-lg btn-block btn-outline-dark btn-hgh">Go</a>
-                      </div>
-                    </div>
-                  </div>
-
           </div>
       </section>
     </div>

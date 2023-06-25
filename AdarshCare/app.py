@@ -27,9 +27,7 @@ app.config['MYSQL_DB'] = 'adarsh care'
 mysql = MySQL(app)
 
 # Loading our diabetes model:
-modelDB = pickle.load(open("models/LogModelDiabetes.pkl", "rb"))
-modelBC = pickle.load(open("models/RFModelCancer.pkl", "rb"))
-
+modelDB = pickle.load(open("models/DiabetesmodelRaFO.pkl", "rb"))
 
 
 # Setting routes for our web-pages:
@@ -61,29 +59,40 @@ def logout():
     session.pop('email', None)
     return redirect(url_for('login'))
   
-@app.route('/register', methods =['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    mesage = ''
-    if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form :
+    message = ''
+    if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form:
         userName = request.form['name']
         password = request.form['password']
         email = request.form['email']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM user WHERE email = % s', (email, ))
-        account = cursor.fetchone()
-        if account:
-            mesage = 'Account already exists !'
-        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            mesage = 'Invalid email address !'
+        
+        # Validating email format
+        if not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            message = 'Invalid email address! Must be a valid Gmail address.'
+        # Checking if the email already exists in the database
+        elif check_email_exists(email):
+            message = 'Account already exists!'
+        # Validating password format
+        elif not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$', password):
+            message = 'Invalid password! Must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long.'
+        # Checking if any required field is empty
         elif not userName or not password or not email:
-            mesage = 'Please fill out the form !'
+            message = 'Please fill out the form!'
         else:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO user (name, email, password) VALUES (%s, %s, %s)', (userName, email, password))
             mysql.connection.commit()
-            mesage = 'You have successfully registered !'
+            message = 'You have successfully registered!'
     elif request.method == 'POST':
-        mesage = 'Please fill out the form !'
-    return render_template('register.html', mesage = mesage)
+        message = 'Please fill out the form!'
+    return render_template('register.html', message=message)
+
+def check_email_exists(email):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM user WHERE email = %s', (email,))
+    account = cursor.fetchone()
+    return account is not None
 @app.route("/home")
 def home():
     return render_template("home.html")
@@ -105,45 +114,25 @@ def profile():
 @app.route("/diabetes-predict", methods=["GET", "POST"])
 def db_prediction():
     if request.method == "POST":
+        age = int(request.form["age"])
+        bmi = float(request.form["bmi"])
+        hba1c_level = float(request.form["hba1c_level"])
+        blood_glucose_level = int(request.form["blood_glucose_level"])
+        gender = request.form["gender"]
+        hypertension = int(request.form["hypertension"])
+        heart_disease = int(request.form["heart_disease"])
+        smoking_history = int(request.form["smoking_history"])
 
-        pregnancies = int(request.form["pregnancies"])
-        glucose = int(request.form["glucose"])
-        bp = int(request.form["bp"])
-        skin_thickness = int(request.form["skin_thickness"])
-        insulin = int(request.form["insulin"])
-        bmi = int(request.form["bmi"])
-        dpf = int(request.form["dpf"])
-        glucose = int(request.form["glucose"])
-
-        predictions = modelDB.predict([[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, glucose]])
+        predictions = modelDB.predict([[age, bmi, hba1c_level, blood_glucose_level, gender, hypertension, heart_disease, smoking_history]])
         output = predictions[0]
 
         if output == 0:
-            result = "The patient doesn't have Diabetes"
+            result = "Congrats-The patient doesn't have Diabetes"
         else:
             result = "The patient has Diabetes"
 
     return render_template('diabetes-result.html', prediction_text=result)
 
-@app.route("/cancer-predict", methods=["GET", "POST"])
-def bc_prediction():
-    if request.method == "POST":
-
-        cpm = float(request.form["cpm"])
-        area = float(request.form["area"])
-        radius = float(request.form["radius"])
-        perimeter = float(request.form["perimeter"])
-        concavity = float(request.form["concavity"])
-
-        predictions = modelBC.predict([[cpm, area, radius, perimeter, concavity]])
-        output = predictions[0]
-
-        if output == 0:
-            result = "Type of cells: Benign. Hence the patient is cancer-free"
-        else:
-            result = "Type of cells: Malign. Hence the patient has cancer"
-
-    return render_template('cancer-result.html', prediction_text=result)
 
 @app.route('/predict', methods = ['GET', 'POST'])
 def upload():

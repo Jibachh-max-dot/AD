@@ -59,6 +59,31 @@
 			flex-direction: row;
 		}
     </style>
+    <script>
+        // JavaScript code here
+        function validateForm() {
+            var emailInput = document.getElementById("email");
+            var passwordInput = document.getElementById("password");
+            var emailValue = emailInput.value.trim();
+            var passwordValue = passwordInput.value.trim();
+
+            // Email validation
+            if (!emailValue.endsWith("@gmail.com")) {
+                emailInput.setCustomValidity("Please enter a valid Gmail address.");
+                emailInput.reportValidity();
+                return false;
+            }
+
+            // Password validation
+            if (passwordValue.length < 6 || passwordValue.toUpperCase() !== passwordValue) {
+                passwordInput.setCustomValidity("Password must be at least 6 characters long and contain uppercase letters.");
+                passwordInput.reportValidity();
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 
 <body>

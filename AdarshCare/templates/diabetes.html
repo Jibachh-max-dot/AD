@@ -34,9 +34,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('diabetes_prediction') }}">Diabetes Prediction</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cancer_prediction') }}">Breast-Cancer Detection</a>
-                    </li>
                     {% if session.loggedin %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -61,111 +58,119 @@
     </nav>
 
     <!-- Input Form -->
-    <div class="container bordering">
-        <form action="{{ url_for('db_prediction') }}" method="post">
+<div class="container bordering">
+    <form action="{{ url_for('db_prediction') }}" method="post">
 
-            <div class="row">
-                <!-- Input for Pregnancies -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">Pregnancies</h5>
-                            <input type="number" name="pregnancies" placeholder="Number of pregnancies" id="nitrogen-input"
-                                required="required">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Input for Glucose -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">Glucose</h5>
-                            <input type="number" name="glucose" placeholder="Glucose Level"
-                                id="phosphorus-input" required="required">
-                        </div>
+        <div class="row">
+            <!-- Input for Age -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Enter your Age</h5>
+                        <input type="number" name="age" placeholder="Age of the patient" id="age-input" required="required">
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <!-- Input for Blood Pressure -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">Blood Pressure</h5>
-                            <input type="number" name="bp" placeholder="BP Level" id="potassium-input"
-                                required="required">
-                        </div>
+            <!-- Input for BMI -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Enter BMI</h5>
+                        <input type="number" name="bmi" placeholder="BMI" id="bmi-input" required="required">
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Input for Skin Thickness -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">Skin Thickness</h5>
-                            <input type="number" name="skin_thickness" placeholder="In mm" id="temperature-input"
-                                required="required">
-                        </div>
+        <div class="row">
+            <!-- Input for HbA1c Level -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Enter Hemoglobin Level</h5>
+                        <input type="number" name="hba1c_level" placeholder="HbA1c Level" id="hba1c-input" required="required">
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <!-- Input for Insulin -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">Insulin</h5>
-                            <input type="number" name="insulin" placeholder="Insulin level"
-                                id="humidity-input" required="required">
-                        </div>
+            <!-- Input for Blood Glucose Level -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Enter Blood Glucose Level</h5>
+                        <input type="number" name="blood_glucose_level" placeholder="Blood Glucose Level" id="glucose-input" required="required">
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Input for BMI -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">BMI</h5>
-                            <input type="number" name="bmi" placeholder="BMI" id="ph-input"
-                                required="required">
-                        </div>
+        <div class="row">
+            <!-- Input for Gender -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Choose your Gender</h5>
+                        <select name="gender" id="gender-input" required="required">
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                            <option value="2">Other</option>
+                        </select>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <!-- Input for DPF -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">Diabetes Pedigree Function</h5>
-                            <!-- (a function which scores likelihood of diabetes based on family history) -->
-                            <input type="number" name="dpf" placeholder="Diabetes Pedigree Function"
-                                id="humidity-input" required="required">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Input for Age -->
-                <div class="col-sm-6">
-                    <div class="card card-inp">
-                        <div class="card-body card-body-inp">
-                            <h5 class="card-title card-title-inp">Age</h5>
-                            <input type="number" name="ph-level" placeholder="Age of the patient" id="ph-input"
-                                required="required">
-                        </div>
+            <!-- Input for Hypertension -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Do you have Hypertension</h5>
+                        <select name="hypertension" id="hypertension-input" required="required">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
                     </div>
                 </div>
             </div>
-            
-            <br>
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn btn btn-dark btn-lg btn-size">Predict</button>
-            <br>
-        </form>
+        </div>
+
+        <div class="row">
+            <!-- Input for Heart Disease -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Do you have Heart Disease</h5>
+                        <select name="heart_disease" id="heart-disease-input" required="required">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input for Smoking History -->
+            <div class="col-sm-6">
+                <div class="card card-inp">
+                    <div class="card-body card-body-inp">
+                        <h5 class="card-title card-title-inp">Choose your Smoking History</h5>
+                        <select name="smoking_history" id="smoking-history-input" required="required">
+                            <option value="5">Current</option>
+                            <option value="4">Never</option>
+                            <option value="3">Former</option>
+                            <option value="2">Ever</option>
+                            <option value="1">Current</option>
+                            <option value="0">No Info</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <br>
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn btn btn-dark btn-lg btn-size">Predict</button>
+        <br>
+    </form>
         <!-- <h3>{{ prediction_text }}</h3> -->
     </div>
 
