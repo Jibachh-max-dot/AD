@@ -34,6 +34,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('diabetes_prediction') }}">Diabetes Prediction</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('breast') }}">Breast-Cancer Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('foood') }}">Foods</a>
+                    </li>
                     {% if session.loggedin %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -77,7 +83,7 @@
                 <div class="card card-inp">
                     <div class="card-body card-body-inp">
                         <h5 class="card-title card-title-inp">Enter BMI</h5>
-                        <input type="number" name="bmi" placeholder="BMI" id="bmi-input" required="required">
+                        <input type="number" name="bmi" placeholder="BMI(Body weight/(height^2))" id="bmi-input" required="required">
                     </div>
                 </div>
             </div>
@@ -154,7 +160,7 @@
                     <div class="card-body card-body-inp">
                         <h5 class="card-title card-title-inp">Choose your Smoking History</h5>
                         <select name="smoking_history" id="smoking-history-input" required="required">
-                            <option value="5">Current</option>
+                            <option value="5">Not Current</option>
                             <option value="4">Never</option>
                             <option value="3">Former</option>
                             <option value="2">Ever</option>
@@ -173,7 +179,37 @@
     </form>
         <!-- <h3>{{ prediction_text }}</h3> -->
     </div>
-
+    <div class="container">
+        <div class="chatbox">
+            <div class="chatbox__support">
+                <div class="chatbox__header">
+                    <div class="chatbox__image--header">
+                        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                    </div>
+                    <div class="chatbox__content--header">
+                        <h4 class="chatbox__heading--header">Chat support</h4>
+                        <p class="chatbox__description--header">Adarsh here. How can I assist you?</p>
+                    </div>
+                </div>
+                <div class="chatbox__messages">
+                    <div></div>
+                </div>
+                <div class="chatbox__footer">
+                    <input type="text" placeholder="Write a message...">
+                    <button class="chatbox__send--footer send__button">Send</button>
+                </div>
+            </div>
+            <div class="chatbox__button">
+                <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+            </div>
+        </div>
+    </div>
+    
+        <script>
+            $SCRIPT_ROOT = {{ request.script_root|tojson }};
+        </script>
+        <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+    
     <footer class="footer">
         <p class="footer-text">AdarshCare, Copyright &copy; 2023</p>
     </footer>

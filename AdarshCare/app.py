@@ -7,7 +7,9 @@ import MySQLdb.cursors
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from flask import Flask, redirect, render_template, request, session, url_for
+from chat import get_response
+from flask import (Flask, jsonify, redirect, render_template, request, session,
+                   url_for)
 from flask_mysqldb import MySQL
 # Importing libraries for Keras:
 from tensorflow.keras.applications.resnet50 import preprocess_input
@@ -27,8 +29,7 @@ app.config['MYSQL_DB'] = 'adarsh care'
 mysql = MySQL(app)
 
 # Loading our diabetes model:
-modelDB = pickle.load(open("models/DiabetesmodelRaFO.pkl", "rb"))
-
+modelDBb = pickle.load(open("models/DiabetesmodelPP.pkl", "rb"))
 
 # Setting routes for our web-pages:
 @app.route('/')
@@ -102,53 +103,99 @@ def diabetes_prediction():
     return render_template("diabetes.html")
 
 
-@app.route("/cancer")
-def cancer_prediction():
-    return render_template("cancer.html")
+@app.route("/breast")
+def breast():
+    return render_template("breast.html")
+
+@app.route('/food')
+def foood():
+    return render_template('food.html')
+
 
 @app.route("/profile")
 def profile():
     return render_template("profile.html")
 
 
+
+@app.post("/predict")
+def predict():
+    text =request.get_json().get("message")
+    
+    response = get_response(text)
+    message ={"answer": response}
+    return jsonify(message)
+
+
 @app.route("/diabetes-predict", methods=["GET", "POST"])
 def db_prediction():
     if request.method == "POST":
-        age = int(request.form["age"])
-        bmi = float(request.form["bmi"])
-        hba1c_level = float(request.form["hba1c_level"])
-        blood_glucose_level = int(request.form["blood_glucose_level"])
         gender = request.form["gender"]
+        age = int(request.form["age"])
         hypertension = int(request.form["hypertension"])
         heart_disease = int(request.form["heart_disease"])
         smoking_history = int(request.form["smoking_history"])
+        bmi = float(request.form["bmi"])
+        hba1c_level = float(request.form["hba1c_level"])
+        blood_glucose_level = int(request.form["blood_glucose_level"])
 
-        predictions = modelDB.predict([[age, bmi, hba1c_level, blood_glucose_level, gender, hypertension, heart_disease, smoking_history]])
+        predictions = modelDBb.predict([[gender, age, hypertension, heart_disease, smoking_history, bmi, hba1c_level, blood_glucose_level,]])
         output = predictions[0]
 
-        if output == 0:
-            result = "Congrats-The patient doesn't have Diabetes"
+        if output == 1 or blood_glucose_level > 110 or hba1c_level > 6:
+            result = "You have Diabetes"
+            emoji = "😞"
+            color = "green"
         else:
-            result = "The patient has Diabetes"
+            result = "You dont have Diabetes"
+            emoji = "😊"
+            color = "red"
 
-    return render_template('diabetes-result.html', prediction_text=result)
+        username = session.get('name')
+        if username:
+            message = f" {username}, {result}"
+            return render_template('diabetes-result.html', message=message, emoji=emoji, color=color)
+
+    return render_template('diabetes-result.html', message="Prediction failed", emoji="", color="")
 
 
-@app.route('/predict', methods = ['GET', 'POST'])
+@app.route('/breast-predict', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
         f = request.files['file']
         
         basePath = os.path.dirname(__file__)
-        file_path = os.path.join(
-            basePath, 'uploads', secure_filename(f.filename))
+        file_path = os.path.join(basePath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
         
-        # Making our prediction:
-        prediction = model_predict(file_path, modelCV)
-        result = prediction
-        return result
-    return None
+        # Load the breast cancer model
+        modelBC = load_model("breastmodel.h5")
+        
+        # Preprocess the image
+        img = image.load_img(file_path, target_size=(256, 256))
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+        x = preprocess_input(x)
+        
+        # Make the prediction
+        prediction = modelBC.predict(x)
+        result = prediction[0][0]
+        
+        if result == 1:
+            output = "Malignant"
+            emoji = "😞"
+            color = "green"
+        else:
+            output = "Benign"
+            emoji = "😊"
+            color = "red"
+            
+        username = session.get('name')
+        if username:
+            message = f" {username}, {output}"
+            return render_template('breast-result.html', message=message, emoji=emoji, color=color)
+
+    return render_template('breast-result.html', message="Prediction failed", emoji="", color="")
 
 
 if __name__ == '__main__':

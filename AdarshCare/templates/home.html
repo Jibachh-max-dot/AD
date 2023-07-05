@@ -34,6 +34,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('diabetes_prediction') }}">Diabetes Prediction</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('breast') }}">Breast-Cancer Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('foood') }}">Foods</a>
+                    </li>
                         {% if session.loggedin %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -68,25 +74,68 @@
       </section>
 
       <section class="info-card" style="flex:1; margin-bottom: 80px">
-          <div class="row flexbox-vertical">
-
-              <div class="col-lg-6 col-md-6">
-                  <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">Diabetes Prediction</h3>
-                    </div>
-                    <div class="card-body">
-                      <p>Decode Your Destiny: Uncover the Diabetes Story of Your Life!!</p>
-                      <!-- <button class="btn btn-lg btn-block btn-outline-dark" type="button" href="CropResult.html">Go</button> -->
-                      <a href="{{ url_for('diabetes_prediction') }}" class="btn btn-lg btn-block btn-outline-dark btn-hgh">Go</a>
-                    </div>
-                  </div>
+    <div class="row flexbox-horizontal">
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Diabetes Prediction</h3>
                 </div>
-          </div>
-      </section>
+                <div class="card-body">
+                    <p>Decode Your Destiny: Uncover the Diabetes Story of Your Life!!</p>
+                    <a href="{{ url_for('diabetes_prediction') }}" class="btn btn-lg btn-block btn-outline-dark btn-hgh">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Breast Cancer</h3>
+                </div>
+                <div class="card-body">
+                    <p>Decode Your Destiny: Uncover the Story of Your Life!!</p>
+                    <a href="{{ url_for('breast') }}" class="btn btn-lg btn-block btn-outline-dark btn-hgh">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
     </div>
     <!-- End of description -->
     </div>
+
+    
+<div class="container">
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 class="chatbox__heading--header">Chat support</h4>
+                    <p class="chatbox__description--header">Adarsh here. How can I assist you?</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+        </div>
+        <div class="chatbox__button">
+            <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+        </div>
+    </div>
+</div>
+
+    <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson }};
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+
 
 
     <footer class="footer">
