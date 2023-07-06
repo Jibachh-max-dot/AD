@@ -126,6 +126,56 @@ def predict():
     message ={"answer": response}
     return jsonify(message)
 
+with app.app_context():
+    cursor = mysql.connection.cursor()
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS conversations (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user VARCHAR(255) NOT NULL,
+        message VARCHAR(255) NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    '''
+    cursor.execute(create_table_query)
+    mysql.connection.commit()
+    cursor.close()
+
+
+@app.route('/store-conversation', methods=['POST'])
+def store_conversation():
+    conversation = request.json['conversation']
+    username = session.get('name')  # Retrieve the logged-in user's username
+    if username:
+        individual_table_name = f"conversations_{username}"
+        with app.app_context():
+            cursor = mysql.connection.cursor()
+            # Check if the individual table already exists for the user
+            check_table_query = f"SHOW TABLES LIKE '{individual_table_name}'"
+            cursor.execute(check_table_query)
+            result = cursor.fetchone()
+
+            if not result:  # Create a new table for the user's conversation
+                create_individual_table_query = f'''
+                CREATE TABLE {individual_table_name} (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    message VARCHAR(255) NOT NULL,
+                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                '''
+                cursor.execute(create_individual_table_query)
+
+            # Insert messages into the individual table
+            for message in conversation:
+                message_text = message['message']
+                insert_query = f"INSERT INTO {individual_table_name} (message) VALUES (%s)"
+                cursor.execute(insert_query, (message_text,))
+
+            mysql.connection.commit()
+            cursor.close()
+
+        return jsonify({'message': 'Conversation stored successfully'})
+    else:
+        return jsonify({'error': 'User not logged in'})
 
 @app.route("/diabetes-predict", methods=["GET", "POST"])
 def db_prediction():
